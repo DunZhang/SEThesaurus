@@ -31,7 +31,7 @@ class CleanDataWiki(object):
         
         for sentence in re.split("\.[^a-z0-9]|[,:?!;\n\r]",strText):
             word_sen = word_token(sentence)
-            if (len(word_sen) > 3):
+            if (len(word_sen) > 2):
                 sentences.append(u" ".join(word_sen) + "\n")
         return sentences
 

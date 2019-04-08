@@ -35,11 +35,13 @@ class CleanDataSO(object):
             self.__reSub1 = re.compile("[\[\]<>`~$\^&*\"=|%@(){},:/\\\\]")  # replace with " "
             self.__resplit = re.compile("\.[^a-z0-9]|[?!;\n\r]")
             self.__rePlus = re.compile("[^+]\+[^+]")
+            self.__minNum = 2
         elif usage_scenario == "embedding":
             self.__reSub0 = re.compile("(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]")  # URL
             self.__reSub1 = re.compile("[\[\]<>`~$\^&*\"=|%@(){}/\\\\]")  # replace with " "
             self.__resplit = re.compile("\.[^a-z0-9]|[,:?!;\n\r]")
-            self.__rePlus = re.compile("[^+]\+[^+]")      
+            self.__rePlus = re.compile("[^+]\+[^+]")   
+            self.__minNum = 5
             
         self.so_xml_path = so_xml_path
         self.clean_data_path = clean_data_path
@@ -53,7 +55,7 @@ class CleanDataSO(object):
             strText = strText.replace(sub, sub[0] + " " + sub[2])
         for sentence in re.split(self.__resplit,strText):
             word_sen = word_token(sentence)
-            if (len(word_sen) > 3):
+            if (len(word_sen) > self.__minNum):
                 sentences.append(u" ".join(word_sen) + "\n")
         return sentences
 
