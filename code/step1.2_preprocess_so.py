@@ -11,7 +11,7 @@ import regex,re
 import codecs
 import re
 import logging
-
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 from lxml import etree
 from bs4 import BeautifulSoup

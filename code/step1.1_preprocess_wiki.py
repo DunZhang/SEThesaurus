@@ -60,5 +60,5 @@ if __name__ == "__main__":
 #    clean_wiki = CleanDataWiki(wiki_paths = getAllFilePaths(join(PROJ_PATH,"data/text/AA")),
 #                               clean_data_path = join(PROJ_PATH,"data/step1.1_wiki.txt"))
 #    clean_wiki.transform(100000)
-    res = random_read(join(PROJ_PATH,"data/step1.1_wiki.txt"))
+    res = random_read(join(PROJ_PATH,"data/step1.1_wiki_for_phrase.txt"))
     
