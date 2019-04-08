@@ -35,6 +35,6 @@ def random_read(path):
             c+=1
             if c>t:
                 res.append(line)
-            if len(line)>80:
+            if len(res)>80:
                 break
     return res

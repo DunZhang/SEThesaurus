@@ -31,19 +31,20 @@ class CleanDataSO(object):
         :param clean_data_path: save clean data to text file ( one line one sentence).
         """
         self.usage_scenario = usage_scenario
-        if usage_scenario == "phrase":   
+        if usage_scenario == "embedding":   
             self.__reSub0 = re.compile("(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]")  # URL
             self.__reSub1 = re.compile("[\[\]<>`~$\^&*\"=|%@(){},:/\\\\]")  # replace with " "
             self.__resplit = re.compile("\.[^a-z0-9]|[?!;\n\r]")
-            self.__rePlus = re.compile("[^+]\+[^+]")
-            self.__bracket = r"\((?:[^()]++|(?R))*+\)"
-            self.__minNum = 3
-        elif usage_scenario == "embedding":
+            self.__rePlus = re.compile("[^+]\+[^+]")       
+            self.__minNum = 4
+            
+        elif usage_scenario == "phrase":
             self.__reSub0 = re.compile("(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]")  # URL
             self.__reSub1 = re.compile("[\[\]<>`~$\^&*\"=|%@(){}/\\\\]")  # replace with " "
             self.__resplit = re.compile("\.[^a-z0-9]|[,:?!;\n\r]")
             self.__rePlus = re.compile("[^+]\+[^+]")   
-            self.__minNum = 5
+            self.__minNum = 2
+            self.__bracket = r"\((?:[^()]++|(?R))*+\)"
             
         self.so_xml_path = so_xml_path
         self.clean_data_path = clean_data_path
@@ -98,8 +99,12 @@ class CleanDataSO(object):
         fw.close() 
 if __name__ == "__main__":
     clean_so = CleanDataSO(so_xml_path=join(PROJ_PATH,"data/Posts.xml"),
-                           clean_data_path=join(PROJ_PATH,"data/step1.2.txt"),
+                           clean_data_path=join(PROJ_PATH,"data/step1.2_so_for_phrase.txt"),
                            usage_scenario = "phrase")
+    clean_so.transform()
+    clean_so = CleanDataSO(so_xml_path=join(PROJ_PATH,"data/Posts.xml"),
+                           clean_data_path=join(PROJ_PATH,"data/step1.2_so_for_embed.txt"),
+                           usage_scenario = "embedding")
     clean_so.transform()
 #p = join(PROJ_PATH,"data/step1.2.1_so.txt")
 
