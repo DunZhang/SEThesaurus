@@ -30,12 +30,14 @@ class CleanDataSO(object):
                 can be downloaded from https://archive.org/download/stackexchange
         :param clean_data_path: save clean data to text file ( one line one sentence).
         """
+        self.usage_scenario = usage_scenario
         if usage_scenario == "phrase":   
             self.__reSub0 = re.compile("(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]")  # URL
             self.__reSub1 = re.compile("[\[\]<>`~$\^&*\"=|%@(){},:/\\\\]")  # replace with " "
             self.__resplit = re.compile("\.[^a-z0-9]|[?!;\n\r]")
             self.__rePlus = re.compile("[^+]\+[^+]")
-            self.__minNum = 2
+            self.__bracket = r"\((?:[^()]++|(?R))*+\)"
+            self.__minNum = 3
         elif usage_scenario == "embedding":
             self.__reSub0 = re.compile("(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]")  # URL
             self.__reSub1 = re.compile("[\[\]<>`~$\^&*\"=|%@(){}/\\\\]")  # replace with " "
@@ -49,8 +51,11 @@ class CleanDataSO(object):
     def __clean_data(self, strText):
         sentences = []
         strText = strText.lower()
+        if self.usage_scenario == "phrase":
+            strText = regex.subf(self.__bracket,"",strText)
         strText = re.sub(self.__reSub0, " ", strText)
         strText = re.sub(self.__reSub1, " ", strText)
+        
         for sub in set(re.findall(self.__rePlus, strText)):
             strText = strText.replace(sub, sub[0] + " " + sub[2])
         for sentence in re.split(self.__resplit,strText):

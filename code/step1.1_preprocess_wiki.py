@@ -6,7 +6,7 @@ Created on Mon Apr  8 00:33:37 2019
 """
 import os
 from os.path import join,isfile,isdir,dirname
-from util import word_token
+from util import word_token,random_read
 import regex,re
 PROJ_PATH = dirname(dirname(__file__))
 class CleanDataWiki(object):
@@ -57,7 +57,8 @@ def getAllFilePaths(dirPath):
 
 if __name__ == "__main__":
     
-    clean_wiki = CleanDataWiki(wiki_paths = getAllFilePaths(join(PROJ_PATH,"data/text/AA")),
-                               clean_data_path = join(PROJ_PATH,"data/step1.1_wiki.txt"))
-    clean_wiki.transform(100000)
+#    clean_wiki = CleanDataWiki(wiki_paths = getAllFilePaths(join(PROJ_PATH,"data/text/AA")),
+#                               clean_data_path = join(PROJ_PATH,"data/step1.1_wiki.txt"))
+#    clean_wiki.transform(100000)
+    res = random_read(join(PROJ_PATH,"data/step1.1_wiki.txt"))
     

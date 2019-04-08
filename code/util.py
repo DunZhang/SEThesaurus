@@ -5,6 +5,7 @@ Created on Mon Apr  8 20:30:49 2019
 @author: Administrator
 """
 import re
+import random
 def word_token(sent):
     words = sent.split()
     res = []
@@ -23,4 +24,17 @@ def word_token(sent):
             res.append(word[0:-1])
         else:
             res.append(word)
+    return res
+
+def random_read(path):
+    res = []
+    c=0
+    t = random.randint(1,426464)
+    with open(path,"r",encoding="utf-8") as fr:
+        for line in fr:
+            c+=1
+            if c>t:
+                res.append(line)
+            if len(line)>80:
+                break
     return res
