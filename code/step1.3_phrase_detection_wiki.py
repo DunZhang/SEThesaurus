@@ -22,7 +22,7 @@ if __name__ == "__main__":
                                             file_overwrite=False,
                                             min_count=10,
                                             threshold=15.0,
-                                            max_vocab_size=40000000, 
+                                            max_vocab_size=120000000, 
                                             delimiter=b'_', 
                                             scoring='default', 
                                             wordNumInPhrase=3)
