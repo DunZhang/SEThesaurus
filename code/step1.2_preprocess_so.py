@@ -15,7 +15,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(level
 logger = logging.getLogger(__name__)
 from lxml import etree
 from bs4 import BeautifulSoup
-
+import pymongo
 PROJ_PATH = dirname(dirname(__file__))
 
     
@@ -98,14 +98,25 @@ class CleanDataSO(object):
             fw.writelines(clean_data)
         fw.close() 
 if __name__ == "__main__":
-    clean_so = CleanDataSO(so_xml_path=join(PROJ_PATH,"data/Posts.xml"),
-                           clean_data_path=join(PROJ_PATH,"data/step1.2_so_for_phrase.txt"),
-                           usage_scenario = "phrase")
-    clean_so.transform()
-    clean_so = CleanDataSO(so_xml_path=join(PROJ_PATH,"data/Posts.xml"),
-                           clean_data_path=join(PROJ_PATH,"data/step1.2_so_for_embed.txt"),
-                           usage_scenario = "embedding")
-    clean_so.transform()
+#    clean_so = CleanDataSO(so_xml_path=join(PROJ_PATH,"data/Posts.xml"),
+#                           clean_data_path=join(PROJ_PATH,"data/step1.2_so_for_phrase.txt"),
+#                           usage_scenario = "phrase")
+#    clean_so.transform()
+#    clean_so = CleanDataSO(so_xml_path=join(PROJ_PATH,"data/Posts.xml"),
+#                           clean_data_path=join(PROJ_PATH,"data/step1.2_so_for_embed.txt"),
+#                           usage_scenario = "embedding")
+#    clean_so.transform()
+    
+    fw = open("E:/pp.txt","w",encoding="utf-8") 
+    data = []
+    with open(join(PROJ_PATH,"data/Posts.xml"),"r",encoding="utf-8") as fr:
+        for line in fr:
+            data.append(line)
+            if len(data)>10000:
+                break
+    fw.writelines(data)
+    fw.close()
+    
 #p = join(PROJ_PATH,"data/step1.2.1_so.txt")
 
 #c = 0
